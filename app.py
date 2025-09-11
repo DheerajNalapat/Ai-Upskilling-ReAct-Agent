@@ -25,8 +25,9 @@ st.markdown(
 )
 
 # --- Session State Initialization ---
-if "user" not in st.session_state:
-    st.session_state.user = None
+if "user_id" not in st.session_state:
+    st.session_state.user_id = None
+    st.session_state.user_name = None
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -48,7 +49,8 @@ with st.sidebar:
         for order in ORDERS_TABLE.values()
     }
     selected_name = st.selectbox("Select User", list(customer_map.keys()))
-    st.session_state.user = customer_map[selected_name]
+    st.session_state.user_id = customer_map[selected_name]
+    st.session_state.user_name = selected_name
 
     st.header("⚙️ Settings")
 
@@ -100,8 +102,14 @@ if prompt := st.chat_input("Ask about orders or shipments..."):
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # Build chat history for agent
         chat_history = [
+            {
+                "role": "user",
+                "content": f"customer_id: {st.session_state.user_id}, customer_name: {st.session_state.user_name}",
+            }
+        ]
+        # Build chat history for agent
+        chat_history += [
             {"role": m["role"], "content": m["content"]}
             for m in st.session_state.messages
             if m["role"] in ["user", "assistant"]
