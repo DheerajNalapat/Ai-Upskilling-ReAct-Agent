@@ -61,11 +61,11 @@ with st.sidebar:
     st.divider()
     st.subheader("📦 Orders Table")
     orders_df = pd.DataFrame([v.model_dump() for v in ORDERS_TABLE.values()])
-    st.dataframe(orders_df, use_container_width=True)
+    st.dataframe(orders_df, width="stretch")
 
     st.subheader("🚚 Shipments Table")
     shipments_df = pd.DataFrame([v.model_dump() for v in SHIPMENTS_TABLE.values()])
-    st.dataframe(shipments_df, use_container_width=True)
+    st.dataframe(shipments_df, width="stretch")
 
 
 # --- Chat Window ---
@@ -75,6 +75,8 @@ st.title("💬 Customer Support Agent - Phase 4")
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+        if "num_iterations" in message:
+            st.markdown(f"**Number of llm calls:** {message['num_iterations']}")
         if "actions" in message and message["actions"]:
             with st.expander("🔍 Reasoning trace", expanded=False):
                 for step in message["actions"]:
@@ -123,8 +125,10 @@ if prompt := st.chat_input("Ask about orders or shipments..."):
                     )
                     content = response.get("final_answer", "")
                     reasoning_trace = response.get("reasoning_trace", [])
+                    num_iterations = response.get("num_iterations", 0)
 
                     st.markdown(content)
+                    st.markdown(f"**Number of llm calls:** {num_iterations}")
                     if reasoning_trace:
                         with st.expander("🔍 Reasoning trace", expanded=False):
                             for step in reasoning_trace:
@@ -146,6 +150,7 @@ if prompt := st.chat_input("Ask about orders or shipments..."):
                             "role": "assistant",
                             "content": content,
                             "actions": reasoning_trace,
+                            "num_iterations": num_iterations,
                         }
                     )
 

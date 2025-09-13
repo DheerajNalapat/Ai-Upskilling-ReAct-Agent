@@ -147,7 +147,7 @@ def get_order(order_id: int) -> Dict[str, Any]:
     else:
         return {
             "success": False,
-            "data": None,
+            "data": f"Order {order_id} not found",
             "message": f"Order {order_id} not found",
         }
 
@@ -157,11 +157,11 @@ def get_order_by_customer_id(
     customer_id: int, date_range: DateRange | None = None
 ) -> Dict[str, Any]:
     """
-    Retrieve order information by customer ID and optinaly filter by date range
+    Retrieve order information by customer ID and optionally filter by date range
 
     Args:
         customer_id: The customer ID to look up
-        date_range: The date range to filter by (optional)
+        date_range: The date range to filter by (optional) in the format {"start_date": "YYYY-MM-DD", "end_date": "YYYY-MM-DD"}
     Returns:
         Dictionary containing order information or error message
     """
@@ -185,7 +185,7 @@ def get_order_by_customer_id(
     else:
         return {
             "success": False,
-            "data": None,
+            "data": f"No orders found for customer {customer_id}",
             "message": f"No orders found for customer {customer_id}",
         }
 
@@ -211,7 +211,7 @@ def get_shipment(shipment_id: int) -> Dict[str, Any]:
     else:
         return {
             "success": False,
-            "data": None,
+            "data": f"Shipment {shipment_id} not found",
             "message": f"Shipment {shipment_id} not found",
         }
 
@@ -237,6 +237,6 @@ def get_shipment_by_order_id(order_id: int) -> Dict[str, Any]:
 
     return {
         "success": False,
-        "data": None,
+        "data": f"No shipment found for order {order_id}",
         "message": f"No shipment found for order {order_id}",
     }
