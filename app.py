@@ -2,7 +2,7 @@
 
 import streamlit as st
 import pandas as pd
-from agent import create_agent
+from agent_checkpoint_4 import create_agent
 from tools import ORDERS_TABLE, SHIPMENTS_TABLE
 from dotenv import load_dotenv
 
@@ -69,7 +69,7 @@ with st.sidebar:
 
 
 # --- Chat Window ---
-st.title("💬 Customer Support Agent - Phase 4")
+st.title("💬 Customer Support Agent")
 
 # Display messages
 for message in st.session_state.messages:
@@ -120,9 +120,7 @@ if prompt := st.chat_input("Ask about orders or shipments..."):
         with st.chat_message("assistant"):
             with st.spinner("Thinking..."):
                 try:
-                    response = st.session_state.agent.run(
-                        prompt, chat_history=chat_history
-                    )
+                    response = st.session_state.agent.run(prompt)
                     content = response.get("final_answer", "")
                     reasoning_trace = response.get("reasoning_trace", [])
                     num_iterations = response.get("num_iterations", 0)

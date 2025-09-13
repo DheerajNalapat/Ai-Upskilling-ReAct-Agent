@@ -13,10 +13,8 @@ from datetime import datetime
 import os
 import re
 from typing import Dict, Any, Optional, Tuple
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_openai import ChatOpenAI
 
-# from langchain_groq import ChatGroq
 from langchain.schema import HumanMessage, AIMessage, SystemMessage
 from tools import (
     get_order,
@@ -40,7 +38,7 @@ class CustomerServiceAgent:
     4. Repeat until final answer
     """
 
-    def __init__(self, api_key: str, model_name: str = "gemini-2.0-flash"):
+    def __init__(self, api_key: str, model_name: str = "gpt-4o-mini"):
         """
         Initialize the ReAct agent
 
@@ -48,12 +46,6 @@ class CustomerServiceAgent:
             api_key: Google API key for Gemini
             model_name: Name of the Gemini model to use
         """
-        # google llm
-        # self.llm = ChatGoogleGenerativeAI(
-        #     model=model_name, google_api_key=api_key, temperature=0.1
-        # )
-        # groq llm
-        # self.llm = ChatGroq(model=model_name, api_key=api_key, temperature=0.1)
         self.llm = ChatOpenAI(model="gpt-4o-mini", api_key=api_key, temperature=0.1)
 
         self.tools = [
@@ -276,12 +268,7 @@ def create_agent() -> CustomerServiceAgent:
     Returns:
         Configured ReActAgent instance
     """
-    # api_key = os.getenv("GOOGLE_API_KEY")
-    # if not api_key:
-    #     raise ValueError("GOOGLE_API_KEY environment variable is not set")
-    # api_key = os.getenv("GROQ_API_KEY")
-    # if not api_key:
-    #     raise ValueError("GROQ_API_KEY environment variable is not set")
+
     api_key = os.getenv("OPENAI_API_KEY")
     if not api_key:
         raise ValueError("OPENAI_API_KEY environment variable is not set")
