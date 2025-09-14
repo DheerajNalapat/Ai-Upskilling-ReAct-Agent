@@ -133,7 +133,7 @@ for message in st.session_state.messages:
 if prompt := st.chat_input("Ask about orders or shipments..."):
     if not st.session_state.agent:
         st.error(
-            "❌ Agent not initialized. Please check your GOOGLE_API_KEY environment variable."
+            "❌ Agent not initialized. Please check your OPENAI_API_KEY environment variable."
         )
     else:
         # Add user message
