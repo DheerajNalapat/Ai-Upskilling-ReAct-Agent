@@ -2,10 +2,33 @@
 
 import streamlit as st
 import pandas as pd
-from agent_checkpoint_4 import create_agent
+from agent_checkpoints.agent_checkpoint_1 import (
+    create_agent as create_agent_checkpoint_1,
+)
+from agent_checkpoints.agent_checkpoint_2 import (
+    create_agent as create_agent_checkpoint_2,
+)
+from agent_checkpoints.agent_checkpoint_3 import (
+    create_agent as create_agent_checkpoint_3,
+)
+from agent_checkpoints.agent_checkpoint_4 import (
+    create_agent as create_agent_checkpoint_4,
+)
+from agent_checkpoints.agent_checkpoint_5 import (
+    create_agent as create_agent_checkpoint_5,
+)
+from agent_itrating_over_action import create_agent as create_agent_itrating_over_action
 from tools import ORDERS_TABLE, SHIPMENTS_TABLE
 from dotenv import load_dotenv
 
+list_of_agents = {
+    "agent_checkpoint_1": create_agent_checkpoint_1,
+    "agent_checkpoint_2": create_agent_checkpoint_2,
+    "agent_checkpoint_3": create_agent_checkpoint_3,
+    "agent_checkpoint_4": create_agent_checkpoint_4,
+    "agent_checkpoint_5": create_agent_checkpoint_5,
+    "agent_itrating_over_action": create_agent_itrating_over_action,
+}
 
 load_dotenv()
 
@@ -32,16 +55,31 @@ if "user_id" not in st.session_state:
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-if "agent" not in st.session_state:
+if "selected_agent" not in st.session_state:
+    st.session_state.selected_agent = "agent_checkpoint_1"
+
+if "user_selected_agent" not in st.session_state:
+    st.session_state.user_selected_agent = "agent_checkpoint_1"
+
+if (
+    "agent" not in st.session_state
+    or st.session_state.selected_agent != st.session_state.user_selected_agent
+):
     try:
-        st.session_state.agent = create_agent()
+        agent_factory = list_of_agents[st.session_state.user_selected_agent]
+        st.session_state.agent = agent_factory()
+        st.session_state.selected_agent = st.session_state.user_selected_agent
     except Exception as e:
         st.session_state.agent = None
-        st.error(f"Failed to initialize agent: {e}")
+        st.error(f"Failed to initialize {st.session_state.user_selected_agent}: {e}")
 
 
 # --- Sidebar ---
 with st.sidebar:
+    st.header("⚙️ Settings")
+    selected_agent = st.selectbox("Select Agent", list(list_of_agents.keys()))
+    st.session_state.user_selected_agent = selected_agent
+
     st.header("User Info")
     # Build mapping of customer_name → customer_id
     customer_map = {
