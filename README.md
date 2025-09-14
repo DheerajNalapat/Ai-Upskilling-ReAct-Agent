@@ -1,53 +1,90 @@
-# ReAct Agent Demo
+# ReAct Agent Learning Project
 
-A minimal hands-on project demonstrating a ReAct (Reasoning and Acting) agent using Gemini via LangChain.
+A hands-on project to learn how to build a ReAct (Reasoning and Acting) agent. This project will guide you through creating an intelligent agent that can reason through problems and take actions step by step.
 
-## Project Structure
+## Prerequisites
 
-```
-├── app.py          # Streamlit UI for user interaction
-├── agent.py        # ReAct agent implementation with LangChain
-├── tools.py        # Tool definitions and in-memory data tables
-├── requirements.txt # Python dependencies
-└── README.md       # This file
-```
+Before you begin, make sure you have:
+- **Python 3.11** installed on your system
+- An **OpenAI API key** (we'll set this up in the setup guide below)
 
-## Features
+## Quick Setup Guide
 
-- **ReAct Pattern**: Implements reasoning loops (Thought → Action → Observation → Final Answer)
-- **Gemini Integration**: Uses Google's Gemini LLM via LangChain
-- **Structured Output**: Pydantic schemas for data validation
-- **Tool Calling**: Agent can query orders and shipments
-- **Interactive UI**: Streamlit-based web interface
-- **Reasoning Trace**: Full visibility into agent's decision process
+Follow these simple steps to get started:
 
-## Setup
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd Ai-Upskilling-ReAct-Agent
+   ```
 
-1. **Install dependencies:**
+2. **Create and activate a virtual environment:**
 
+   **Option A: Using venv (recommended)**
+   ```bash
+   # Create virtual environment
+   python3.11 -m venv venv
+   
+   # Activate virtual environment
+   # On Linux/Mac:
+   source venv/bin/activate
+   # On Windows:
+   venv\Scripts\activate
+   ```
+
+   **Option B: Using conda**
+   ```bash
+   # Create conda environment
+   conda create -n venv python=3.11
+   
+   # Activate conda environment
+   conda activate venv
+   ```
+
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Get Google API Key:**
+4. **Set up your API key:**
+   
+   Create a `.env` file in the project root:
+   ```bash
+   # Create .env file
+   touch .env
+   ```
+   
+   Add your OpenAI API key to the `.env` file:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+   
+   **To get an OpenAI API key:**
+   - Go to [OpenAI Platform](https://platform.openai.com/api-keys)
+   - Sign up or log in to your account
+   - Click "Create new secret key"
+   - Copy the key and paste it in your `.env` file
 
-   - Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Create a new API key
-   - Copy the key for use in the app
-
-3. **Run the application:**
-
+5. **Run the application:**
    ```bash
    streamlit run app.py
    ```
 
-4. **Open your browser:**
-   - Navigate to `http://localhost:8501`
-   - Enter your Google API key in the sidebar
-   - Ask questions about orders and shipments
+6. **Open your browser:**
+   - Go to `http://localhost:8501`
+   - Start building your AI agent!
+
+## What You'll Learn
+
+This project will teach you:
+- How AI agents think and make decisions
+- How to build tools that agents can use
+- How to create interactive web interfaces for your agents
+- How to handle different types of user questions
 
 ## Sample Queries
 
+Once your agent is set up, you can ask questions like:
 - "Where is my order #1234?"
 - "What's the status of order #1235?"
 - "Tell me about shipment #1001"
@@ -64,21 +101,34 @@ A minimal hands-on project demonstrating a ReAct (Reasoning and Acting) agent us
 5. **Iteration**: Agent continues reasoning until it has enough information
 6. **Final Answer**: Agent provides a complete, grounded answer
 
-## Data
-
-The demo includes sample data for:
-
-- **Orders**: Order details, customer info, status, amounts
-- **Shipments**: Tracking info, carrier, delivery status, location
-
 ## Architecture
 
 - **tools.py**: Defines Pydantic schemas and tool functions
 - **agent.py**: Implements the ReAct agent with LangChain integration
 - **app.py**: Provides the Streamlit web interface
 
-## Requirements
+## Project Structure
 
-- Python 3.8+
-- Google API key for Gemini
-- Internet connection for API calls
+```
+├── app.py          # Web interface for your agent
+├── agent.py        # Your AI agent (starts with basic code)
+├── tools.py        # Tools your agent can use
+├── requirements.txt # Python packages needed
+└── README.md       # This guide
+```
+
+## Getting Started
+
+The project starts with basic code that you'll build upon. As you progress through the learning modules, you'll:
+- Add more capabilities to your agent
+- Create new tools for different tasks
+- Improve how your agent responds to users
+- Learn best practices for AI agent development
+
+## Need Help?
+
+If you run into any issues:
+1. Make sure you're using Python 3.11
+2. Check that your virtual environment is activated
+3. Verify your `.env` file has the correct API key
+4. Ensure all dependencies are installed with `pip install -r requirements.txt`
