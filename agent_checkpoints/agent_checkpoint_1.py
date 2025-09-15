@@ -29,10 +29,9 @@ from loguru import logger
 
 class CustomerServiceAgent:
 
-    def __init__(self):
-        # def __init__(self, api_key: str, model_name: str = "gpt-4o-mini"):
+    def __init__(self, api_key: str, model_name: str = "gpt-4o-mini"):
         # use ChatOpenAI to create a llm client
-        pass
+        self.reasoning_trace = []
 
     def run(self, query: str) -> Dict[str, Any]:
         """
@@ -69,7 +68,7 @@ def create_agent() -> CustomerServiceAgent:
     """
     Create and return a agent instance
     """
-    # api_key = os.getenv("OPENAI_API_KEY")
-    # if not api_key:
-    #     raise ValueError("OPENAI_API_KEY environment variable is not set")
-    return CustomerServiceAgent()  # add api_key here
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("OPENAI_API_KEY environment variable is not set")
+    return CustomerServiceAgent(api_key=api_key)  # add api_key here

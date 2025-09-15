@@ -2,6 +2,7 @@
 
 import streamlit as st
 import pandas as pd
+from agent import create_agent as create_agent_main
 from agent_checkpoints.agent_checkpoint_1 import (
     create_agent as create_agent_checkpoint_1,
 )
@@ -17,15 +18,20 @@ from agent_checkpoints.agent_checkpoint_4 import (
 from agent_checkpoints.agent_checkpoint_5 import (
     create_agent as create_agent_checkpoint_5,
 )
+from agent_checkpoints.agent_checkpoint_6 import (
+    create_agent as create_agent_checkpoint_6,
+)
 from tools import ORDERS_TABLE, SHIPMENTS_TABLE
 from dotenv import load_dotenv
 
 list_of_agents = {
+    "agent": create_agent_main,
     "agent_checkpoint_1": create_agent_checkpoint_1,
     "agent_checkpoint_2": create_agent_checkpoint_2,
     "agent_checkpoint_3": create_agent_checkpoint_3,
     "agent_checkpoint_4": create_agent_checkpoint_4,
     "agent_checkpoint_5": create_agent_checkpoint_5,
+    "agent_checkpoint_6": create_agent_checkpoint_6,
 }
 
 load_dotenv()
