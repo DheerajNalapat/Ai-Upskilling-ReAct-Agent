@@ -137,6 +137,9 @@ class CustomerServiceAgent:
                 )
 
                 # check for thought
+                # First take everything to the right of "Thought:" from agent response
+                # Next check if "Action:" exists in the extracted text. If it does, take what's to the left of it i.e. the actual thought
+                # Next check if "Final Answer:" exists extracted text. If it does, take whats to the left of it i.e. the actual thought
                 if "Thought:" in response_text:
                     agent_thought = response_text.split("Thought:")[-1].strip()
                     agent_thought = agent_thought.split("Action:")[0].strip()

@@ -48,6 +48,7 @@ class Shipment(BaseModel):
     shipping_date: str = Field(
         description="Date when shipment was shipped (YYYY-MM-DD)"
     )
+    delayed_reason: str = Field(description="Reason for delayed shipment")
 
 
 # In-memory data tables (demo-ready for Sept 2025)
@@ -110,6 +111,7 @@ SHIPMENTS_TABLE = {
         destination="New York, NY",
         origin="Los Angeles, CA",
         shipping_date="2025-09-03",
+        delayed_reason="Delivery delayed due to weather conditions",
     ),
     1002: Shipment(
         shipment_id=1002,
@@ -122,6 +124,7 @@ SHIPMENTS_TABLE = {
         destination="Boston, MA",
         origin="Newark, NJ",
         shipping_date="2025-09-07",
+        delayed_reason="in transit",
     ),
 }
 
@@ -137,6 +140,8 @@ def get_order(order_id: int) -> Dict[str, Any]:
     Returns:
         Dictionary containing order information or error message
     """
+    if isinstance(order_id, str):
+        order_id = int(order_id)
     if order_id in ORDERS_TABLE:
         order = ORDERS_TABLE[order_id]
         return {
@@ -165,6 +170,8 @@ def get_order_by_customer_id(
     Returns:
         Dictionary containing order information or error message
     """
+    if isinstance(customer_id, str):
+        customer_id = int(customer_id)
     orders = []
     for order in ORDERS_TABLE.values():
         if order.customer_id == customer_id:
@@ -201,6 +208,8 @@ def get_shipment(shipment_id: int) -> Dict[str, Any]:
     Returns:
         Dictionary containing shipment information or error message
     """
+    if isinstance(shipment_id, str):
+        shipment_id = int(shipment_id)
     if shipment_id in SHIPMENTS_TABLE:
         shipment = SHIPMENTS_TABLE[shipment_id]
         return {
@@ -227,6 +236,8 @@ def get_shipment_by_order_id(order_id: int) -> Dict[str, Any]:
     Returns:
         Dictionary containing shipment information or error message
     """
+    if isinstance(order_id, str):
+        order_id = int(order_id)
     for shipment in SHIPMENTS_TABLE.values():
         if shipment.order_id == order_id:
             return {

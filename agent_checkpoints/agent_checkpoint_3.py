@@ -31,6 +31,7 @@ class CustomerServiceAgent:
 
     def __init__(self, api_key: str, model_name: str = "gpt-4o-mini"):
         self.llm = ChatOpenAI(api_key=api_key, model_name=model_name)
+        self.reasoning_trace = []
 
         # create a tools list
         # bind these tools to the llm
