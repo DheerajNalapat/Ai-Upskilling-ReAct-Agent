@@ -17,7 +17,6 @@ from agent_checkpoints.agent_checkpoint_4 import (
 from agent_checkpoints.agent_checkpoint_5 import (
     create_agent as create_agent_checkpoint_5,
 )
-from agent_itrating_over_action import create_agent as create_agent_itrating_over_action
 from tools import ORDERS_TABLE, SHIPMENTS_TABLE
 from dotenv import load_dotenv
 
@@ -27,7 +26,6 @@ list_of_agents = {
     "agent_checkpoint_3": create_agent_checkpoint_3,
     "agent_checkpoint_4": create_agent_checkpoint_4,
     "agent_checkpoint_5": create_agent_checkpoint_5,
-    "agent_itrating_over_action": create_agent_itrating_over_action,
 }
 
 load_dotenv()
