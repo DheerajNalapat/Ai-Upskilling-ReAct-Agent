@@ -16,11 +16,21 @@ Follow these simple steps to get started:
    ```bash
    git clone <repository-url>
    cd Ai-Upskilling-ReAct-Agent
+   git checkout hands-on
    ```
 
 2. **Create and activate a virtual environment:**
 
-   **Option A: Using venv (recommended)**
+   **Option A: Using conda (if you have conda installed)**
+   ```bash
+   # Create conda environment
+   conda create -n venv python=3.11
+   
+   # Activate conda environment
+   conda activate venv
+   ```
+
+   **Option B: Using venv (if you don't have conda)**
    ```bash
    # Create virtual environment
    python3.11 -m venv venv
@@ -30,15 +40,6 @@ Follow these simple steps to get started:
    source venv/bin/activate
    # On Windows:
    venv\Scripts\activate
-   ```
-
-   **Option B: Using conda**
-   ```bash
-   # Create conda environment
-   conda create -n venv python=3.11
-   
-   # Activate conda environment
-   conda activate venv
    ```
 
 3. **Install dependencies:**
@@ -72,7 +73,18 @@ Follow these simple steps to get started:
 
 6. **Open your browser:**
    - Go to `http://localhost:8501`
+   - Select "agent" from the dropdown menu in the left sidebar
    - Start building your AI agent!
+
+## Prerequisites Confirmation
+
+After running the application, you should see an interface similar to this:
+
+The interface should show:
+- A left sidebar with settings and data tables (Orders and Shipments)
+- A chat interface on the right with sample conversation
+- Dropdown menus for agent and user selection
+- Pre-populated data in the tables
 
 ## What You'll Learn
 
